@@ -1,3 +1,4 @@
+
 const scene = new THREE.Scene();
 //Camara
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );        
@@ -30,11 +31,25 @@ cone.rotation.x = 10;
 //Añadir mesh a la escena
 scene.add( cube, sphere, cylinder, cone);
 
-    
 
 camera.position.z = 5;
+
+//Stats
+var stats;
+stats = new Stats();
+stats.setMode(2); // 0: fps, 1: ms, 2memory
+stats.domElement.style.position = "absolute";
+stats.domElement.style.left = "100px";
+stats.domElement.style.top = "10px";
+document.getElementById("myStats").appendChild(stats.domElement);
+
+//Orbit Controls
+var controls;
+controls = new THREE.OrbitControls(camera, renderer.domElement);
 function animate() {
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
+    controls.update();
+    stats.update();
 }
 animate();
